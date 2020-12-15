@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_032012) do
+ActiveRecord::Schema.define(version: 2020_12_14_201934) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -20,6 +20,33 @@ ActiveRecord::Schema.define(version: 2020_12_13_032012) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_credentials_on_created_at"
     t.index ["user_id"], name: "index_credentials_on_user_id", unique: true
+  end
+
+  create_table "license_keys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "key", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_license_keys_on_created_at"
+    t.index ["user_id"], name: "index_license_keys_on_user_id"
+  end
+
+  create_table "subscriptions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "email"
+    t.string "name"
+    t.integer "price"
+    t.decimal "tax_rate", precision: 4, scale: 2
+    t.string "checkout_session_id"
+    t.string "customer_id"
+    t.string "subscription_id"
+    t.datetime "trial_end_at"
+    t.datetime "canceled_at"
+    t.datetime "charge_failed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_subscriptions_on_created_at"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

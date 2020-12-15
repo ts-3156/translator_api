@@ -1,0 +1,31 @@
+#main-content {
+    width: 600px;
+    margin: 0 auto;
+    display: none;
+}
+
+#brand-header {
+    color: white;
+    background-color: #292929;
+    height: 100px;
+}
+
+#brand-logo {
+    vertical-align: text-bottom;
+}
+
+#brand-name {
+    font-size: 24px;
+}
+
+.menu-title {
+    font-size: 20px;
+}
+
+.plan-title {
+    font-size: 22px;
+}
+
+.text-green {
+    color: green;
+}

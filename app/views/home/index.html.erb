@@ -1,1 +1,108 @@
-<%= @user.inspect %>
+<div id="main-content" class="border my-5">
+  <div id="brand-header" class="d-flex justify-content-center align-items-center">
+    <div>
+      <img id="brand-logo" class="mr-2" src="<%= image_path('icon128.png') %>" width="24" height="24">
+      <span id="brand-name">Deep Translator</span>
+    </div>
+  </div>
+
+  <div class="m-3">
+    <% if notice %>
+      <div class="alert alert-success"><%= notice %></div>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-warning"><%= alert %></p>
+    <% end %>
+
+    <div class="form-group mt-3 my-5">
+      <div id="language-title" class="menu-title mb-2">Language</div>
+      <select class="form-control" id="language-select">
+        <option value="en">English</option>
+        <option value="ja">Japanese</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-3 my-5">
+      <div class="mb-3">
+        This page is for Deep Translator users. If you haven't installed Deep Translator yet, please go to the Chrome Web Store and install it.
+      </div>
+      <a class="btn btn-primary" href="<%= store_url %>">Chrome Web Store</a>
+    </div>
+
+    <div class="form-group mt-3 my-5">
+      <div class="mb-3">
+        If you have already installed Deep Translator, you can change the translation settings on the options page.
+      </div>
+      <a class="btn btn-outline-primary" href="<%= options_url %>">Deep Translator Options</a>
+    </div>
+
+    <div class="form-group mt-3 my-5">
+      <div id="account-title" class="menu-title mb-2">Account</div>
+      <input id="profile-email" class="form-control" type="text" placeholder="" disabled>
+      <small class="form-text text-muted"><a id="sign-in" href="<%= user_google_oauth2_omniauth_authorize_path %>">Sign in</a></small>
+      <small class="form-text text-muted"><%= link_to 'Sign out', destroy_user_session_path, id: 'sign-out', style: 'display: none;', method: :delete %></small>
+    </div>
+
+    <div class="form-group mt-3 my-5">
+      <div id="license-key-title" class="menu-title mb-2">License key</div>
+      <input id="license-key" class="form-control" type="text" placeholder="lk_xxxxx" disabled>
+      <small id="license-key-help" class="form-text text-muted">If you have already purchased a subscription, please enter the key on the <a href="<%= options_url %>">options page</a>.</small>
+    </div>
+
+    <div><a id="privacy-policy-link" href="#">Privacy policy</a></div>
+    <div><a id="terms-of-service-link" href="#">Terms of service</a></div>
+
+    <hr>
+
+    <div class="form-group mt-3 my-5">
+      <div id="plan-title" class="menu-title mb-2">Plan</div>
+      <div class="mb-3">
+        <div id="plan-description" class="mb-5">You are using the free version of Deep Translator.</div>
+
+        <div class="d-flex justify-content-between">
+          <div class="mx-3 w-100">
+            <div class="plan-title mb-2">Free</div>
+            <div class="mb-5">For hobbyists</div>
+            <div id="free-price-amount" class="plan-title mb-2">$0</div>
+            <div id="free-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
+
+            <div id="free-features" class="mb-3">Top features:</div>
+            <div class="mb-5">
+              <div><span class="text-green">&#10003;</span> <span id="free-characters-per-translation" class="small">250 characters per translation</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="free-characters-per-month" class="small">10,000 characters per month</span></div>
+            </div>
+          </div>
+
+          <div class="border-left"></div>
+
+          <div class="mx-3 w-100">
+            <div class="plan-title mb-2">Pro</div>
+            <div class="mb-5">For business</div>
+            <div id="pro-price-amount" class="plan-title mb-2">$5</div>
+            <div id="pro-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
+
+            <div id="pro-features" class="mb-3">Top features:</div>
+            <div class="mb-5">
+              <div><span class="text-green">&#10003;</span> <span id="pro-characters-per-translation" class="small">Unlimited characters per translation</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="pro-characters-per-month" class="small">Unlimited characters per month</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="mx-3 w-100">
+            <button type="button" id="selected-button" class="btn btn-primary btn-block" disabled>Selected</button>
+          </div>
+
+          <div class="border-left"></div>
+
+          <div class="mx-3 w-100">
+            <button type="button" id="upgrade-button" class="btn btn-primary btn-block btn-checkout">Upgrade</button>
+            <button type="button" id="learn-more-button" class="btn btn-link btn-block">Learn more</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

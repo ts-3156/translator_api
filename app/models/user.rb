@@ -6,9 +6,15 @@ class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i(google_oauth2)
 
   has_one :credential
+  has_many :subscriptions
+  has_many :license_keys
 
   validates :uid, presence: true, uniqueness: true
   validates :email, presence: true
+
+  def has_subscription?
+    subscriptions.not_canceled.charge_not_failed.any?
+  end
 
   class << self
     def from_omniauth(auth)

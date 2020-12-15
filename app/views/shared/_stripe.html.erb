@@ -1,0 +1,59 @@
+<script src='https://js.stripe.com/v3'></script>
+
+<% if user_signed_in? %>
+  <% if current_user.has_subscription? %>
+    <script>
+      $(function () {
+        function disableCheckoutButton(button) {
+          if (!button.data('checkout-initialized')) {
+            button.data('checkout-initialized', true);
+            button.attr('disabled', 'disabled');
+            button.addClass('disabled');
+            button.text('<%= t('.already_purchased') %>');
+          }
+          return false;
+        }
+
+        $('.btn-checkout').each(function () {
+          return disableCheckoutButton($(this));
+        })
+
+        $(document).on('click', '.btn-checkout', function () {
+          return disableCheckoutButton($(this));
+        });
+      });
+    </script>
+  <% else %>
+    <script>
+      $(function () {
+        var stripe = Stripe("<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>");
+
+        function redirectToCheckout() {
+          var url = '<%= api_checkout_sessions_path %>';
+          $.post(url).done(function (res) {
+            stripe.redirectToCheckout({sessionId: res.session_id}).then(function (result) {
+              alert(result.error.message);
+            });
+          }).fail(function (xhr) {
+            alert(JSON.parse(xhr.responseText).message);
+          });
+        }
+
+        $(document).on('click', '.btn-checkout', function () {
+          redirectToCheckout();
+          return false;
+        });
+      });
+    </script>
+  <% end %>
+<% else %>
+  <%= render partial: 'shared/sign_in_modal', locals: { modal_id: 'sign-in-modal' } %>
+  <script>
+    $(function () {
+      $(document).on('click', '.btn-checkout', function () {
+        $('#sign-in-modal').modal();
+        return false;
+      });
+    })
+  </script>
+<% end %>

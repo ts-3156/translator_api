@@ -1,0 +1,14 @@
+ja:
+  shared:
+    sign_in_modal:
+      title: 'Googleでログインする'
+      body: 'まず初めに、Googleでログインしてください。'
+    stripe:
+      already_purchased: '購入済み'
+  home:
+    checkout_success: '定期購読の購入に成功しました。'
+    checkout_cancel: '購入をキャンセルしました。'
+  users:
+    omniauth_callbacks:
+      success: 'Googleアカウントでのログインに成功しました。'
+      failure: '%{reason} が原因でGoogleアカウントでのログインに失敗しました。'
