@@ -9,13 +9,13 @@ class HomeController < ApplicationController
         @license = current_user.active_license
       end
 
-      set_checkout_message
+      set_message
     end
   end
 
   private
 
-  def set_checkout_message
+  def set_message
     if session.delete(:checkout_start)
       if params[:via] == 'checkout_success'
         if current_user.has_subscription?

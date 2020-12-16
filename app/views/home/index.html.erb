@@ -133,12 +133,12 @@
           <div class="mx-3 w-100">
             <% if user_signed_in? %>
               <% if @subscription %>
-                <button type="button" id="pro-plan-button" class="btn btn-primary btn-block disabled" disabled>Upgrade</button>
+                <button type="button" id="pro-plan-licensee-button" class="btn btn-primary btn-block disabled" disabled>Purchased</button>
               <% else %>
-                <button type="button" id="pro-plan-button" class="btn btn-primary btn-block btn-checkout">Upgrade</button>
+                <button type="button" id="pro-plan-user-button" class="btn btn-primary btn-block btn-checkout">Upgrade</button>
               <% end %>
             <% else %>
-              <button type="button" id="pro-plan-button" class="btn btn-primary btn-block disabled" disabled>Upgrade</button>
+              <button type="button" id="pro-plan-visitor-button" class="btn btn-primary btn-block disabled" disabled>Upgrade</button>
             <% end %>
 
             <% if @subscription %>
