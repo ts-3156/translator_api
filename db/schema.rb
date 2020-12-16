@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_175402) do
+ActiveRecord::Schema.define(version: 2020_12_16_212040) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -49,6 +49,23 @@ ActiveRecord::Schema.define(version: 2020_12_16_175402) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_subscriptions_on_created_at"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "translation_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "license_id", null: false
+    t.string "source_lang"
+    t.string "target_lang"
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_translation_requests_on_created_at"
+  end
+
+  create_table "translation_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "translation_request_id", null: false
+    t.string "detected_source_language"
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_translation_responses_on_created_at"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

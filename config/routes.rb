@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   namespace :api, { format: 'json' } do
+    resources :translations, only: %i(create)
     resource :user, only: %i(show)
     resources :webhooks, only: %i(create)
     resources :checkout_sessions, only: %i(create)
