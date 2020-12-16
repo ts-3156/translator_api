@@ -18,7 +18,6 @@ module Api
 
       if (subscription = current_user.subscriptions.order(created_at: :desc).first)
         attrs[:customer] = subscription.customer_id
-        attrs[:subscription_data][:trial_period_days] = 0
       else
         attrs[:subscription_data][:trial_period_days] = Subscription::TRIAL_DAYS
       end

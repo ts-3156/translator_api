@@ -1,7 +1,16 @@
 class HomeController < ApplicationController
   def index
-    @user = current_user
-    set_checkout_message
+    if user_signed_in?
+      @user = current_user
+      if current_user.has_subscription?
+        @subscription = current_user.active_subscription
+      end
+      if current_user.has_license_key?
+        @license_key = current_user.active_license_key
+      end
+
+      set_checkout_message
+    end
   end
 
   private
@@ -9,7 +18,11 @@ class HomeController < ApplicationController
   def set_checkout_message
     if session.delete(:checkout_start)
       if params[:via] == 'checkout_success'
-        flash.now[:notice] = t('.checkout_success')
+        if current_user.has_subscription?
+          flash.now[:notice] = t('.checkout_success')
+        else
+          flash.now[:alert] = t('.checkout_cancel')
+        end
       elsif params[:via] == 'checkout_cancel'
         flash.now[:alert] = t('.checkout_cancel')
       end

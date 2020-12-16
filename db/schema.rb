@@ -24,7 +24,9 @@ ActiveRecord::Schema.define(version: 2020_12_14_201934) do
 
   create_table "license_keys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "subscription_id"
     t.text "key", null: false
+    t.datetime "revoked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_license_keys_on_created_at"

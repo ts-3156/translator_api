@@ -23,32 +23,44 @@
     </div>
 
     <div class="form-group mt-3 my-5">
-      <div class="mb-3">
-        This page is for Deep Translator users. If you haven't installed Deep Translator yet, please go to the Chrome Web Store and install it.
+      <div id="web-store-description" class="mb-3">
+        This page is for users of Deep Translator. If you haven't installed Deep Translator yet, please go to the Chrome Web Store and install it.
       </div>
-      <a class="btn btn-primary" href="<%= store_url %>">Chrome Web Store</a>
+      <a id="web-store-link" class="btn btn-primary" href="<%= store_url %>">Chrome Web Store</a>
     </div>
 
     <div class="form-group mt-3 my-5">
-      <div class="mb-3">
+      <div id="options-page-description" class="mb-3">
         If you have already installed Deep Translator, you can change the translation settings on the options page.
       </div>
-      <a class="btn btn-outline-primary" href="<%= options_url %>">Deep Translator Options</a>
+      <a id="options-page-link" class="btn btn-outline-primary" href="<%= options_url %>">Deep Translator Options</a>
     </div>
 
     <div class="form-group mt-3 my-5">
       <div id="account-title" class="menu-title mb-2">Account</div>
-      <input id="profile-email" class="form-control" type="text" placeholder="" disabled>
-      <small class="form-text text-muted"><a id="sign-in" href="<%= user_google_oauth2_omniauth_authorize_path %>">Sign in</a></small>
-      <small class="form-text text-muted"><%= link_to 'Sign out', destroy_user_session_path, id: 'sign-out', style: 'display: none;', method: :delete %></small>
+      <input id="account-email" class="form-control" type="text" placeholder="" disabled>
+      <small id="account-help" class="form-text text-muted">
+        <% if user_signed_in? %>
+          <span class="sign-out-text"><a id="sign-out" href="#">Sign out</a></span>
+        <% else %>
+          <span class="sign-in-text">A license key will be issued after <a class="sign-in" href="#">signing in</a>.</span>
+        <% end %>
+      </small>
     </div>
 
     <div class="form-group mt-3 my-5">
       <div id="license-key-title" class="menu-title mb-2">License key</div>
-      <input id="license-key" class="form-control" type="text" placeholder="lk_xxxxx" disabled>
-      <small id="license-key-help" class="form-text text-muted">If you have already purchased a subscription, please enter the key on the <a href="<%= options_url %>">options page</a>.</small>
+      <input id="license-key" class="form-control" type="text" placeholder="Not issued yet" disabled>
+      <small id="license-key-help" class="form-text text-muted">
+        <% if user_signed_in? %>
+          <span id="enter-license-key-text">Please enter the above key on the <a href="<%= options_url %>">options page</a>.</span>
+        <% else %>
+          <span class="sign-in-text">A license key will be issued after <a class="sign-in" href="#">signing in</a>.</span>
+        <% end %>
+      </small>
     </div>
 
+    <div><a id="support-link" href="https://twitter.com/deeptranslator" target="_blank">Support</a></div>
     <div><a id="privacy-policy-link" href="#">Privacy policy</a></div>
     <div><a id="terms-of-service-link" href="#">Terms of service</a></div>
 
@@ -57,48 +69,60 @@
     <div class="form-group mt-3 my-5">
       <div id="plan-title" class="menu-title mb-2">Plan</div>
       <div class="mb-3">
-        <div id="plan-description" class="mb-5">You are using the free version of Deep Translator.</div>
+        <div class="mb-5">
+          <% if user_signed_in? %>
+            <% if current_user.has_subscription? %>
+              <div id="pro-plan-description">You are using the pro version of Deep Translator.</div>
+            <% else %>
+              <div id="free-plan-description">You are using the free version of Deep Translator.</div>
+            <% end %>
+          <% else %>
+            <div id="visitor-plan-description">In order to use the free version of Deep Translator, please sign in and issue a license key.</div>
+          <% end %>
+        </div>
 
         <div class="d-flex justify-content-between">
           <div class="mx-3 w-100">
-            <div class="plan-title mb-2">Free</div>
-            <div class="mb-5">For hobbyists</div>
-            <div id="free-price-amount" class="plan-title mb-2">$0</div>
-            <div id="free-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
+            <div id="free-plan-name" class="plan-title mb-2">Free</div>
+            <div id=free-plan-audience class="mb-5">For hobbyists</div>
+            <div id="free-plan-price-amount" class="plan-title mb-2">$0</div>
+            <div id="free-plan-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
 
-            <div id="free-features" class="mb-3">Top features:</div>
+            <div id="free-plan-features" class="mb-3">Top features:</div>
             <div class="mb-5">
-              <div><span class="text-green">&#10003;</span> <span id="free-characters-per-translation" class="small">250 characters per translation</span></div>
-              <div><span class="text-green">&#10003;</span> <span id="free-characters-per-month" class="small">10,000 characters per month</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="free-plan-characters-per-translation" class="small">250 characters per translation</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="free-plan-characters-per-month" class="small">10,000 characters per month</span></div>
             </div>
           </div>
 
           <div class="border-left"></div>
 
           <div class="mx-3 w-100">
-            <div class="plan-title mb-2">Pro</div>
-            <div class="mb-5">For business</div>
-            <div id="pro-price-amount" class="plan-title mb-2">$5</div>
-            <div id="pro-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
+            <div id="pro-plan-name" class="plan-title mb-2">Pro</div>
+            <div id="pro-plan-audience" class="mb-5">For business</div>
+            <div id="pro-plan-price-amount" class="plan-title mb-2">$5</div>
+            <div id="pro-plan-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
 
-            <div id="pro-features" class="mb-3">Top features:</div>
+            <div id="pro-plan-features" class="mb-3">Top features:</div>
             <div class="mb-5">
-              <div><span class="text-green">&#10003;</span> <span id="pro-characters-per-translation" class="small">Unlimited characters per translation</span></div>
-              <div><span class="text-green">&#10003;</span> <span id="pro-characters-per-month" class="small">Unlimited characters per month</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="pro-plan-characters-per-translation" class="small">Unlimited characters per translation</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="pro-plan-characters-per-month" class="small">Unlimited characters per month</span></div>
             </div>
           </div>
         </div>
 
         <div class="d-flex justify-content-between">
           <div class="mx-3 w-100">
-            <button type="button" id="selected-button" class="btn btn-primary btn-block" disabled>Selected</button>
+            <button type="button" id="free-plan-button" class="btn btn-primary btn-block" disabled>Get free license</button>
           </div>
 
           <div class="border-left"></div>
 
           <div class="mx-3 w-100">
-            <button type="button" id="upgrade-button" class="btn btn-primary btn-block btn-checkout">Upgrade</button>
-            <button type="button" id="learn-more-button" class="btn btn-link btn-block">Learn more</button>
+            <button type="button" id="pro-plan-button" class="btn btn-primary btn-block btn-checkout">Upgrade</button>
+            <% if @subscription %>
+              <%= link_to 'Cancel', api_subscription_path(id: @subscription.id), id: 'cancel-button', class: 'btn-btn-link btn-block text-center', method: :delete, remote: true, data: { confirm: 'Are you sure you want to cancel a subscription?' } %>
+            <% end %>
           </div>
         </div>
       </div>

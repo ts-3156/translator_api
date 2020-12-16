@@ -16,6 +16,18 @@ class User < ApplicationRecord
     subscriptions.not_canceled.charge_not_failed.any?
   end
 
+  def active_subscription
+    subscriptions.not_canceled.charge_not_failed.order(created_at: :desc).first
+  end
+
+  def has_license_key?
+    license_keys.not_revoked.any?
+  end
+
+  def active_license_key
+    license_keys.not_revoked.order(created_at: :desc).first
+  end
+
   class << self
     def from_omniauth(auth)
       user = find_or_initialize_by(uid: auth.uid)
@@ -25,6 +37,7 @@ class User < ApplicationRecord
         transaction do
           user.save!
           user.create_credential!(access_token: auth.credentials.token, refresh_token: auth.credentials.refresh_token)
+          user.license_keys.create!
         end
       else
         user.save! if user.changed?

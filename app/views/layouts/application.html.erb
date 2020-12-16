@@ -18,6 +18,12 @@
 </head>
 
 <body>
+<% if user_signed_in? %>
+  <%= render partial: 'shared/sign_out_modal' %>
+<% else %>
+  <%= render partial: 'shared/sign_in_modal' %>
+<% end %>
+
 <%= yield %>
 </body>
 </html>

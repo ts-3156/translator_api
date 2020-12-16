@@ -10,6 +10,12 @@ class LicenseKey < ApplicationRecord
     end
   end
 
+  scope :not_revoked, -> { where(revoked_at: nil) }
+
+  def revoke!
+    update!(revoked_at: Time.zone.now)
+  end
+
   class << self
     def generate_key
       begin
