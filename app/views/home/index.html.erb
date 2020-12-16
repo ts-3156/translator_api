@@ -142,7 +142,7 @@
             <% end %>
 
             <% if @subscription %>
-              <%= link_to 'Cancel', api_subscription_path(id: @subscription.id), id: 'cancel-button', class: 'btn-btn-link btn-block text-center', method: :delete, remote: true, data: { confirm: 'Are you sure you want to cancel a subscription?' } %>
+              <button type="button" id="pro-plan-cancel-button" class="btn btn-link btn-block text-center cancel-subscription" data-subscription-id="<%= @subscription.id %>">Cancel a subscription</button>
             <% end %>
 
             <div class="text-muted small mt-3">

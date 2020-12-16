@@ -20,6 +20,9 @@
 <body>
 <% if user_signed_in? %>
   <%= render partial: 'shared/sign_out_modal' %>
+  <% if current_user.has_subscription? %>
+    <%= render partial: 'shared/cancel_subscription_modal' %>
+  <% end %>
 <% else %>
   <%= render partial: 'shared/sign_in_modal' %>
 <% end %>

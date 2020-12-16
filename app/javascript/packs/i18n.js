@@ -50,6 +50,7 @@ const values = {
     pro_plan_characters_per_month: 'Unlimited characters per month',
     pro_plan_button: 'Upgrade',
     pro_plan_link: '',
+    pro_plan_cancel_button: 'Cancel a subscription',
     pro_plan_user_help: 'If you like it, please consider using the pro plan.',
     pro_plan_licensee_help: 'What can I do for you? Please feel free to ask any questions at any time.',
     pro_plan_visitor_help: 'Please <a class="sign-in" href="#">sign in</a> and try the free version before you pay for it.',
@@ -68,6 +69,12 @@ const values = {
       body: 'Are you sure you want to sign out?',
       yes: 'Sign out',
       no: 'Cancel'
+    },
+    cancel_subscription_modal: {
+      title: 'Cancel a subscription',
+      body: 'Are you sure you want to cancel a subscription?',
+      yes: 'Yes, cancel a subscription',
+      no: 'Close'
     }
   },
   ja: {
@@ -121,6 +128,7 @@ const values = {
     pro_plan_characters_per_month: '無制限の文字数 / 1ヶ月',
     pro_plan_button: 'アップグレード',
     pro_plan_link: '',
+    pro_plan_cancel_button: '定期購読をキャンセルする',
     pro_plan_user_help: '気に入っていただけたなら、プロフェッショナルプランのご利用をご検討ください。',
     pro_plan_licensee_help: '何かお困りですか？ いつでもお気軽にご質問ください。',
     pro_plan_visitor_help: '有料版をご利用になる前に、まずは<a class="sign-in" href="#">ログイン</a>して無料版をご利用ください。',
@@ -139,6 +147,12 @@ const values = {
       body: '本当にログアウトしますか？',
       yes: 'ログアウト',
       no: 'キャンセル'
+    },
+    cancel_subscription_modal: {
+      title: '定期購読のキャンセル',
+      body: '本当に定期購読をキャンセルしますか？',
+      yes: 'はい、定期購読をキャンセルします。',
+      no: '閉じる'
     }
   }
 }

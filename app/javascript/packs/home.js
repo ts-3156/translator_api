@@ -40,6 +40,7 @@ function updateUILabels() {
   $('#pro-plan-characters-per-translation').text(i18n.t('pro_plan_characters_per_translation'))
   $('#pro-plan-characters-per-month').text(i18n.t('pro_plan_characters_per_month'))
   $('#pro-plan-button').text(i18n.t('pro_plan_button'))
+  $('#pro-plan-cancel-button').text(i18n.t('pro_plan_cancel_button'))
   $('#pro-plan-user-help').html(i18n.t('pro_plan_user_help'))
   $('#pro-plan-licensee-help').html(i18n.t('pro_plan_licensee_help'))
   $('#pro-plan-visitor-help').html(i18n.t('pro_plan_visitor_help'))
@@ -60,6 +61,12 @@ function updateUILabels() {
       .find('.modal-body').html(i18n.t('sign_out_modal.body')).end()
       .find('.modal-footer .btn-yes').text(i18n.t('sign_out_modal.yes')).end()
       .find('.modal-footer .btn-no').text(i18n.t('sign_out_modal.no'))
+
+  $('#cancel-subscription-modal')
+      .find('.modal-title').text(i18n.t('cancel_subscription_modal.title')).end()
+      .find('.modal-body').html(i18n.t('cancel_subscription_modal.body')).end()
+      .find('.modal-footer .btn-yes').text(i18n.t('cancel_subscription_modal.yes')).end()
+      .find('.modal-footer .btn-no').text(i18n.t('cancel_subscription_modal.no'))
 }
 
 function setValues() {
@@ -132,6 +139,19 @@ function signOut() {
   return false
 }
 
+function cancelSubscription(id) {
+  const url = '/api/subscriptions/' + id // api_subscription_path
+  $.ajax({
+    url: url,
+    type: 'DELETE'
+  }).done(function () {
+    window.location.href = '/?via=cancel_subscription'
+  }).fail(function (xhr) {
+    console.error(xhr.responseText)
+  })
+  return false
+}
+
 $(function () {
   updateUI(function () {
     $('#main-content').show()
@@ -158,5 +178,16 @@ $(function () {
 
   $('#sign-out-modal .btn-primary').on('click', function () {
     return signOut()
+  })
+
+  $(document).on('click', '.cancel-subscription', function () {
+    const id = $(this).data('subscription-id')
+    $('#cancel-subscription-modal').data('subscription-id', id).modal()
+    return false
+  })
+
+  $('#cancel-subscription-modal .btn-primary').on('click', function () {
+    const id = $('#cancel-subscription-modal').data('subscription-id')
+    return cancelSubscription(id)
   })
 })
