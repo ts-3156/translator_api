@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_201934) do
+ActiveRecord::Schema.define(version: 2020_12_16_175402) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -22,15 +22,15 @@ ActiveRecord::Schema.define(version: 2020_12_14_201934) do
     t.index ["user_id"], name: "index_credentials_on_user_id", unique: true
   end
 
-  create_table "license_keys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "licenses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "subscription_id"
     t.text "key", null: false
+    t.json "metadata"
     t.datetime "revoked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["created_at"], name: "index_license_keys_on_created_at"
-    t.index ["user_id"], name: "index_license_keys_on_user_id"
+    t.index ["created_at"], name: "index_licenses_on_created_at"
+    t.index ["user_id"], name: "index_licenses_on_user_id"
   end
 
   create_table "subscriptions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

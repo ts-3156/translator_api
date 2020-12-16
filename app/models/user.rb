@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   has_one :credential
   has_many :subscriptions
-  has_many :license_keys
+  has_many :licenses
 
   validates :uid, presence: true, uniqueness: true
   validates :email, presence: true
@@ -20,12 +20,12 @@ class User < ApplicationRecord
     subscriptions.not_canceled.charge_not_failed.order(created_at: :desc).first
   end
 
-  def has_license_key?
-    license_keys.not_revoked.any?
+  def has_license?
+    licenses.not_revoked.any?
   end
 
-  def active_license_key
-    license_keys.not_revoked.order(created_at: :desc).first
+  def active_license
+    licenses.not_revoked.order(created_at: :desc).first
   end
 
   class << self
@@ -37,7 +37,7 @@ class User < ApplicationRecord
         transaction do
           user.save!
           user.create_credential!(access_token: auth.credentials.token, refresh_token: auth.credentials.refresh_token)
-          user.license_keys.create!
+          user.licenses.create!
         end
       else
         user.save! if user.changed?

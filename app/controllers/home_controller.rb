@@ -5,8 +5,8 @@ class HomeController < ApplicationController
       if current_user.has_subscription?
         @subscription = current_user.active_subscription
       end
-      if current_user.has_license_key?
-        @license_key = current_user.active_license_key
+      if current_user.has_license?
+        @license = current_user.active_license
       end
 
       set_checkout_message

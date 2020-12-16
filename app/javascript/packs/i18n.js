@@ -60,13 +60,13 @@ const values = {
           '        - A license key will be issued after signing in.<br>\n' +
           '        - This app can access email address only.<br>\n' +
           '        - You can sign out at any time.',
-      ok: 'Sign in',
+      yes: 'Sign in',
       no: 'Cancel'
     },
     sign_out_modal: {
       title: 'Sign out',
       body: 'Are you sure you want to sign out?',
-      ok: 'Sign out',
+      yes: 'Sign out',
       no: 'Cancel'
     }
   },
@@ -131,14 +131,14 @@ const values = {
           '        - ライセンス キー はログイン後に発行されます<br>\n' +
           '        - 取得するのは email のみです<br>\n' +
           '        - いつでもログアウトできます',
-      ok: 'Sign in',
-      no: 'Cancel'
+      yes: 'ログイン',
+      no: 'キャンセル'
     },
     sign_out_modal: {
       title: 'ログアウト',
       body: '本当にログアウトしますか？',
-      ok: 'Sign out',
-      no: 'Cancel'
+      yes: 'ログアウト',
+      no: 'キャンセル'
     }
   }
 }

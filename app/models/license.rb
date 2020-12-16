@@ -1,4 +1,4 @@
-class LicenseKey < ApplicationRecord
+class License < ApplicationRecord
   belongs_to :user
 
   validates :user_id, presence: true
@@ -17,6 +17,10 @@ class LicenseKey < ApplicationRecord
   end
 
   class << self
+    def find_by_metadata(subscription_id:)
+      where('metadata->>"$.subscription_id" = ?', subscription_id).first
+    end
+
     def generate_key
       begin
         key = 'lk_' + SecureRandom.hex

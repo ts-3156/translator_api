@@ -89,7 +89,7 @@ function updateUI(callback) {
   updateUILabels()
 
   getProfile(function (data) {
-    updateProfile(data.email, data.license_key)
+    updateProfile(data.email)
     if (callback) {
       callback()
     }
@@ -101,9 +101,8 @@ function updateUI(callback) {
   })
 }
 
-function updateProfile(email, licenseKey) {
+function updateProfile(email) {
   $('#account-email').val(email)
-  $('#license-key').val(licenseKey)
 }
 
 function getProfile(done, fail) {

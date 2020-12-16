@@ -50,7 +50,7 @@
 
     <div class="form-group mt-3 my-5">
       <div id="license-key-title" class="menu-title mb-2">License key</div>
-      <input id="license-key" class="form-control" type="text" placeholder="Not issued yet" disabled>
+      <input id="license-key" class="form-control" type="text" placeholder="Not issued yet" value="<%= @license&.key %>" disabled>
       <small id="license-key-help" class="form-text text-muted">
         <% if user_signed_in? %>
           <span id="enter-license-key-text">Please enter the above key on the <a href="<%= options_url %>">options page</a>.</span>

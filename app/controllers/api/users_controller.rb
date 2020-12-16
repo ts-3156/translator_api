@@ -3,7 +3,7 @@ module Api
     before_action :authenticate_user!
 
     def show
-      render json: { email: current_user.email, license_key: current_user.active_license_key&.key }
+      render json: { email: current_user.email }
     end
   end
 end
