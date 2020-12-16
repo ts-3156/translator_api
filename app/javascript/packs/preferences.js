@@ -1,8 +1,4 @@
 const language = ['en', 'ja']
-const sourceLanguage = ['automatic', 'de', 'en', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'ch']
-const targetLanguage = ['de', 'en', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'ch']
-const saveHistories = ['yes', 'no']
-const sendAnonymousData = ['yes', 'no']
 
 export class Preferences {
   constructor() {
@@ -43,21 +39,5 @@ export class Preferences {
 
   language(value) {
     return this.accessValue('language', value, 'en', language)
-  }
-
-  sourceLanguage(value) {
-    return this.accessValue('sourceLanguage', value, 'automatic', sourceLanguage)
-  }
-
-  targetLanguage(value) {
-    return this.accessValue('targetLanguage', value, 'en', targetLanguage)
-  }
-
-  saveHistories(value) {
-    return this.accessValue('saveHistories', value, 'yes', saveHistories)
-  }
-
-  sendAnonymousData(value) {
-    return this.accessValue('sendAnonymousData', value, 'yes', sendAnonymousData)
   }
 }

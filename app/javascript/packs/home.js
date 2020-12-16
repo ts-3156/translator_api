@@ -44,6 +44,17 @@ function updateUILabels() {
     $opt.text(i18n.t($opt.attr('value')))
   })
 
+  $('#sign-in-modal')
+      .find('.modal-title').text(i18n.t('sign_in_modal.title')).end()
+      .find('.modal-body').html(i18n.t('sign_in_modal.body')).end()
+      .find('.modal-footer .btn-yes').text(i18n.t('sign_in_modal.yes')).end()
+      .find('.modal-footer .btn-no').text(i18n.t('sign_in_modal.no'))
+
+  $('#sign-out-modal')
+      .find('.modal-title').text(i18n.t('sign_out_modal.title')).end()
+      .find('.modal-body').html(i18n.t('sign_out_modal.body')).end()
+      .find('.modal-footer .btn-yes').text(i18n.t('sign_out_modal.yes')).end()
+      .find('.modal-footer .btn-no').text(i18n.t('sign_out_modal.no'))
 }
 
 function setValues() {
@@ -100,18 +111,18 @@ function getProfile(done, fail) {
 }
 
 function signIn() {
-  window.location.href = '/users/auth/google_oauth2'; // user_google_oauth2_omniauth_authorize_path
-  return false;
+  window.location.href = '/users/auth/google_oauth2' // user_google_oauth2_omniauth_authorize_path
+  return false
 }
 
 function signOut() {
-  const url = '/users/sign_out'; // destroy_user_session_path
+  const url = '/users/sign_out' // destroy_user_session_path
   $.ajax({url: url, type: 'DELETE'}).done(function () {
-    window.location.href = '/?via=sign_out';
+    window.location.href = '/?via=sign_out'
   }).fail(function (xhr) {
-    console.error(xhr.responseText);
-  });
-  return false;
+    console.error(xhr.responseText)
+  })
+  return false
 }
 
 $(function () {
@@ -130,7 +141,7 @@ $(function () {
   })
 
   $('#sign-in-modal .btn-primary').on('click', function () {
-    return signIn();
+    return signIn()
   })
 
   $(document).on('click', '#sign-out', function () {
@@ -139,6 +150,6 @@ $(function () {
   })
 
   $('#sign-out-modal .btn-primary').on('click', function () {
-    return signOut();
+    return signOut()
   })
 })

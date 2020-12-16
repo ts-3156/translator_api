@@ -1,17 +1,5 @@
 ja:
   shared:
-    sign_in_modal:
-      title: 'Googleでログインする'
-      body_html: |
-        まず初めに、Googleでログインしてください。<br>
-        <br>
-        - ライセンス キー はログイン後に発行されます<br>
-        - 取得するのは email のみです<br>
-        - いつでもログアウトできます
-    sign_out_modal:
-      title: 'ログアウト'
-      body_html: |
-        本当にログアウトしますか？
     stripe:
       already_purchased: '購入済み'
   home:

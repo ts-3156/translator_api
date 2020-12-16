@@ -1,17 +1,5 @@
 en:
   shared:
-    sign_in_modal:
-      title: 'Sign in with Google'
-      body_html: |
-        First of all, please sign in with Google.<br>
-        <br>
-        - A license key will be issued after signing in.<br>
-        - This app can access email address only.<br>
-        - You can sign out at any time.
-    sign_out_modal:
-      title: 'Sign out'
-      body_html: |
-        Are you sure you want to sign out?
     stripe:
       already_purchased: 'Purchased'
   home:

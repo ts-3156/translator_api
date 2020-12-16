@@ -1,5 +1,18 @@
 const values = {
   en: {
+    de: 'German',
+    en: 'English',
+    fr: 'French',
+    es: 'Spanish',
+    it: 'Italian',
+    ja: 'Japanese',
+    nl: 'Dutch',
+    pl: 'Polish',
+    pt: 'Portuguese',
+    'pt-br': 'Brazilian Portuguese',
+    'pt-pt': 'European Portuguese',
+    ru: 'Russian',
+    ch: 'Chinese',
     language: 'UI language',
     web_store_description: 'This page is for users of Deep Translator. If you haven\'t installed Deep Translator yet, please go to the Chrome Web Store and install it.',
     web_store_link: 'Chrome Web Store',
@@ -35,26 +48,37 @@ const values = {
     pro_plan_characters_per_month: 'Unlimited characters per month',
     pro_plan_button: 'Upgrade',
     pro_plan_link: '',
-
-
-    automatic: 'Automatic',
-    extension_options: 'Extension Options',
-    extension_website: 'Open website',
-    de: 'German',
-    en: 'English',
-    fr: 'French',
-    es: 'Spanish',
-    it: 'Italian',
-    ja: 'Japanese',
-    nl: 'Dutch',
-    pl: 'Polish',
-    pt: 'Portuguese',
-    'pt-br': 'Brazilian Portuguese',
-    'pt-pt': 'European Portuguese',
-    ru: 'Russian',
-    ch: 'Chinese'
+    sign_in_modal: {
+      title: 'Sign in with Google',
+      body: 'First of all, please sign in with Google.<br>\n' +
+          '        <br>\n' +
+          '        - A license key will be issued after signing in.<br>\n' +
+          '        - This app can access email address only.<br>\n' +
+          '        - You can sign out at any time.',
+      ok: 'Sign in',
+      no: 'Cancel'
+    },
+    sign_out_modal: {
+      title: 'Sign out',
+      body: 'Are you sure you want to sign out?',
+      ok: 'Sign out',
+      no: 'Cancel'
+    }
   },
   ja: {
+    de: 'ドイツ語',
+    en: '英語',
+    fr: 'フランス語',
+    es: 'スペイン語',
+    it: 'イタリア語',
+    ja: '日本語',
+    nl: 'オランダ語',
+    pl: 'ポーランド語',
+    pt: 'ポルトガル語',
+    'pt-br': 'ブラジルポルトガル語',
+    'pt-pt': 'イベリアポルトガル語',
+    ru: 'ロシア語',
+    ch: '中国語',
     language: 'UIの言語',
     web_store_description: 'このページは Deep Translator のユーザー向けです。まだ Deep Translator をインストールしていない場合は、Chrome ウェブストア でインストールしてください。',
     web_store_link: 'Chrome ウェブストア',
@@ -90,24 +114,22 @@ const values = {
     pro_plan_characters_per_month: '無制限の文字数 / 1ヶ月',
     pro_plan_button: 'アップグレード',
     pro_plan_link: '',
-
-
-    automatic: '自動検出',
-    extension_options: '拡張機能オプション',
-    extension_website: 'Webサイトを開く',
-    de: 'ドイツ語',
-    en: '英語',
-    fr: 'フランス語',
-    es: 'スペイン語',
-    it: 'イタリア語',
-    ja: '日本語',
-    nl: 'オランダ語',
-    pl: 'ポーランド語',
-    pt: 'ポルトガル語',
-    'pt-br': 'ブラジルポルトガル語',
-    'pt-pt': 'イベリアポルトガル語',
-    ru: 'ロシア語',
-    ch: '中国語'
+    sign_in_modal: {
+      title: 'Googleでログインする',
+      body: 'まず初めに、Googleでログインしてください。<br>\n' +
+          '        <br>\n' +
+          '        - ライセンス キー はログイン後に発行されます<br>\n' +
+          '        - 取得するのは email のみです<br>\n' +
+          '        - いつでもログアウトできます',
+      ok: 'Sign in',
+      no: 'Cancel'
+    },
+    sign_out_modal: {
+      title: 'ログアウト',
+      body: '本当にログアウトしますか？',
+      ok: 'Sign out',
+      no: 'Cancel'
+    }
   }
 }
 
@@ -118,8 +140,14 @@ export class I18n {
 
   t(key, attrs) {
     let text
+
     try {
-      text = values[this.language][key]
+      if (key.includes('.')) {
+        text = values[this.language][key.split('.')[0]][key.split('.')[1]]
+      } else {
+        text = values[this.language][key]
+      }
+
       if (attrs) {
         Object.keys(attrs).forEach(function (key) {
           text = text.replace(new RegExp('%{' + key + '}', 'g'), attrs[key])
@@ -129,6 +157,7 @@ export class I18n {
       console.error(e)
       text = 'translation missing: ' + this.language + '.' + key
     }
+
     return text
   }
 }
