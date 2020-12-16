@@ -23,14 +23,14 @@
     </div>
 
     <div class="form-group mt-3 my-5">
-      <div id="web-store-description" class="mb-3">
+      <div id="web-store-description" class="mb-2">
         This page is for users of Deep Translator. If you haven't installed Deep Translator yet, please go to the Chrome Web Store and install it.
       </div>
       <a id="web-store-link" class="btn btn-primary" href="<%= store_url %>">Chrome Web Store</a>
     </div>
 
     <div class="form-group mt-3 my-5">
-      <div id="options-page-description" class="mb-3">
+      <div id="options-page-description" class="mb-2">
         If you have already installed Deep Translator, you can change the translation settings on the options page.
       </div>
       <a id="options-page-link" class="btn btn-outline-primary" href="<%= options_url %>">Deep Translator Options</a>
@@ -113,20 +113,52 @@
 
         <div class="d-flex justify-content-between">
           <div class="mx-3 w-100">
-            <button type="button" id="free-plan-button" class="btn btn-primary btn-block" disabled>Get free license</button>
+            <% if user_signed_in? %>
+              <button type="button" id="free-plan-button" class="btn btn-primary btn-block disabled" disabled>Get free license</button>
+            <% else %>
+              <button type="button" id="free-plan-button" class="sign-in btn btn-primary btn-block">Get free license</button>
+            <% end %>
+
+            <div class="text-muted small mt-3">
+              <% if user_signed_in? %>
+                <span id="free-plan-user-help">You already have a license for the free version as you are signed in.</span>
+              <% else %>
+                <span id="free-plan-visitor-help">You can get a free license by simply <a class="sign-in" href="#">signing in</a>.</span>
+              <% end %>
+            </div>
           </div>
 
           <div class="border-left"></div>
 
           <div class="mx-3 w-100">
-            <button type="button" id="pro-plan-button" class="btn btn-primary btn-block btn-checkout">Upgrade</button>
+            <% if user_signed_in? %>
+              <% if @subscription %>
+                <button type="button" id="pro-plan-button" class="btn btn-primary btn-block disabled" disabled>Upgrade</button>
+              <% else %>
+                <button type="button" id="pro-plan-button" class="btn btn-primary btn-block btn-checkout">Upgrade</button>
+              <% end %>
+            <% else %>
+              <button type="button" id="pro-plan-button" class="btn btn-primary btn-block disabled" disabled>Upgrade</button>
+            <% end %>
+
             <% if @subscription %>
               <%= link_to 'Cancel', api_subscription_path(id: @subscription.id), id: 'cancel-button', class: 'btn-btn-link btn-block text-center', method: :delete, remote: true, data: { confirm: 'Are you sure you want to cancel a subscription?' } %>
             <% end %>
+
+            <div class="text-muted small mt-3">
+              <% if user_signed_in? %>
+                <% if @subscription %>
+                  <span id="pro-plan-licensee-help">What can I do for you? Please feel free to ask any questions at any time.</span>
+                <% else %>
+                  <span id="pro-plan-user-help">If you like it, please consider using the pro plan.</span>
+                <% end %>
+              <% else %>
+                <span id="pro-plan-visitor-help">Please <a class="sign-in" href="#">sign in</a> and try the free version before you pay for it.</span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

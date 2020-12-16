@@ -19,9 +19,9 @@ function updateUILabels() {
   $('#privacy-policy-link').text(i18n.t('privacy_policy'))
   $('#terms-of-service-link').text(i18n.t('terms_of_service'))
   $('#plan-title').text(i18n.t('plan'))
-  $('#free-plan-description').text(i18n.t('free_plan_description'))
+  $('#free-plan-description').html(i18n.t('free_plan_description', {url: process.env.EXTENSION_OPTIONS_URL}))
   $('#pro-plan-description').text(i18n.t('pro_plan_description'))
-  $('#visitor-plan-description').html(i18n.t('visitor_plan_description', {url: ''}))
+  $('#visitor-plan-description').html(i18n.t('visitor_plan_description'))
   $('#free-plan-name').text(i18n.t('free_plan_name'))
   $('#free-plan-audience').text(i18n.t('free_plan_audience'))
   $('#free-plan-price-amount').text(i18n.t('free_plan_price_amount'))
@@ -30,6 +30,8 @@ function updateUILabels() {
   $('#free-plan-characters-per-translation').text(i18n.t('free_plan_characters_per_translation'))
   $('#free-plan-characters-per-month').text(i18n.t('free_plan_characters_per_month'))
   $('#free-plan-button').text(i18n.t('free_plan_button'))
+  $('#free-plan-user-help').html(i18n.t('free_plan_user_help'))
+  $('#free-plan-visitor-help').html(i18n.t('free_plan_visitor_help'))
   $('#pro-plan-name').text(i18n.t('pro_plan_name'))
   $('#pro-plan-audience').text(i18n.t('pro_plan_audience'))
   $('#pro-plan-price-amount').text(i18n.t('pro_plan_price_amount'))
@@ -38,6 +40,9 @@ function updateUILabels() {
   $('#pro-plan-characters-per-translation').text(i18n.t('pro_plan_characters_per_translation'))
   $('#pro-plan-characters-per-month').text(i18n.t('pro_plan_characters_per_month'))
   $('#pro-plan-button').text(i18n.t('pro_plan_button'))
+  $('#pro-plan-user-help').html(i18n.t('pro_plan_user_help'))
+  $('#pro-plan-licensee-help').html(i18n.t('pro_plan_licensee_help'))
+  $('#pro-plan-visitor-help').html(i18n.t('pro_plan_visitor_help'))
 
   $('#language-select option').each(function () {
     const $opt = $(this)
@@ -117,7 +122,10 @@ function signIn() {
 
 function signOut() {
   const url = '/users/sign_out' // destroy_user_session_path
-  $.ajax({url: url, type: 'DELETE'}).done(function () {
+  $.ajax({
+    url: url,
+    type: 'DELETE'
+  }).done(function () {
     window.location.href = '/?via=sign_out'
   }).fail(function (xhr) {
     console.error(xhr.responseText)
