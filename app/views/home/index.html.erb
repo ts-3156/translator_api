@@ -14,7 +14,7 @@
       <p class="alert alert-warning"><%= alert %></p>
     <% end %>
 
-    <div class="form-group mt-3 my-5">
+    <div class="form-group mt-5 mb-6">
       <div id="language-title" class="menu-title mb-2">Language</div>
       <select class="form-control" id="language-select">
         <option value="en">English</option>
@@ -22,21 +22,21 @@
       </select>
     </div>
 
-    <div class="form-group mt-3 my-5">
+    <div class="form-group mt-5 mb-6">
       <div id="web-store-description" class="mb-2">
         This page is for users of Deep Translator. If you haven't installed Deep Translator yet, please go to the Chrome Web Store and install it.
       </div>
       <a id="web-store-link" class="btn btn-primary" href="<%= store_url %>">Chrome Web Store</a>
     </div>
 
-    <div class="form-group mt-3 my-5">
+    <div class="form-group mt-5 mb-6">
       <div id="options-page-description" class="mb-2">
         If you have already installed Deep Translator, you can change the translation settings on the options page.
       </div>
       <a id="options-page-link" class="btn btn-outline-primary" href="<%= options_url %>">Deep Translator Options</a>
     </div>
 
-    <div class="form-group mt-3 my-5">
+    <div class="form-group mt-5 mb-6">
       <div id="account-title" class="menu-title mb-2">Account</div>
       <input id="account-email" class="form-control" type="text" placeholder="" disabled>
       <small id="account-help" class="form-text text-muted">
@@ -48,7 +48,7 @@
       </small>
     </div>
 
-    <div class="form-group mt-3 my-5">
+    <div class="form-group mt-5 mb-6">
       <div id="license-key-title" class="menu-title mb-2">License key</div>
       <input id="license-key" class="form-control" type="text" placeholder="Not issued yet" value="<%= @license&.key %>" disabled>
       <small id="license-key-help" class="form-text text-muted">
@@ -60,13 +60,9 @@
       </small>
     </div>
 
-    <div><a id="support-link" href="https://twitter.com/deeptranslator" target="_blank">Support</a></div>
-    <div><a id="privacy-policy-link" href="#">Privacy policy</a></div>
-    <div><a id="terms-of-service-link" href="#">Terms of service</a></div>
-
     <hr>
 
-    <div class="form-group mt-3 my-5">
+    <div class="form-group mt-5 mb-6">
       <div id="plan-title" class="menu-title mb-2">Plan</div>
       <div class="mb-3">
         <div class="mb-5">
@@ -159,6 +155,33 @@
           </div>
         </div>
       </div>
+
     </div>
+
+    <hr>
+
+    <div class="form-group mt-5 mb-6">
+      <div id="support-account-title" class="menu-title mb-2">Support account</div>
+      <div class="mb-3">If you have any questions, please feel free to ask <a href="https://twitter.com/deeptranslator" target="_blank">@deeptranslator</a></div>
+    </div>
+
+    <div class="form-group mt-5 mb-6">
+      <div id="privacy-policy-title" class="menu-title mb-2">Privacy policy</div>
+      <ul>
+        <li>No personally identifiable information will be collected.</li>
+        <li>All data sent for translation will be used only for the purpose of translation.</li>
+        <li>All data will not be shared with third parties.</li>
+      </ul>
+    </div>
+
+    <div class="form-group mt-5 mb-6">
+      <div id="terms-of-service-title" class="menu-title mb-2">Terms of service</div>
+      <ul>
+        <li>By using this site, you agree to the Terms of Service and Privacy Policy.</li>
+        <li>Use of this site is at your sole risk. All services are provided "as is," without any warranty of any kind.</li>
+        <li>All sales are final in the purchase of this item, no refunds are available.</li>
+      </ul>
+    </div>
+
   </div>
 </div>
