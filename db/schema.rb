@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_212040) do
+ActiveRecord::Schema.define(version: 2020_12_17_054637) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -22,16 +22,28 @@ ActiveRecord::Schema.define(version: 2020_12_16_212040) do
     t.index ["user_id"], name: "index_credentials_on_user_id", unique: true
   end
 
-  create_table "licenses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "free_licenses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "key", null: false
-    t.json "metadata"
     t.datetime "revoked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["created_at"], name: "index_licenses_on_created_at"
-    t.index ["key"], name: "index_licenses_on_key", unique: true
-    t.index ["user_id"], name: "index_licenses_on_user_id"
+    t.index ["created_at"], name: "index_free_licenses_on_created_at"
+    t.index ["key"], name: "index_free_licenses_on_key", unique: true
+    t.index ["user_id"], name: "index_free_licenses_on_user_id"
+  end
+
+  create_table "pro_licenses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "subscription_id", null: false
+    t.string "key", null: false
+    t.datetime "revoked_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_pro_licenses_on_created_at"
+    t.index ["key"], name: "index_pro_licenses_on_key", unique: true
+    t.index ["subscription_id"], name: "index_pro_licenses_on_subscription_id"
+    t.index ["user_id"], name: "index_pro_licenses_on_user_id"
   end
 
   create_table "subscriptions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -53,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_212040) do
   end
 
   create_table "translation_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "license_type", null: false
     t.bigint "license_id", null: false
     t.string "source_lang"
     t.string "target_lang"
@@ -67,6 +80,15 @@ ActiveRecord::Schema.define(version: 2020_12_16_212040) do
     t.text "text"
     t.datetime "created_at", null: false
     t.index ["created_at"], name: "index_translation_responses_on_created_at"
+  end
+
+  create_table "trial_licenses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.datetime "revoked_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_trial_licenses_on_created_at"
+    t.index ["key"], name: "index_trial_licenses_on_key", unique: true
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

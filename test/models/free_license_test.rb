@@ -1,6 +1,6 @@
 require "test_helper"
 
-class LicenseTest < ActiveSupport::TestCase
+class FreeLicenseTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

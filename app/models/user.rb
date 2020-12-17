@@ -7,7 +7,8 @@ class User < ApplicationRecord
 
   has_one :credential
   has_many :subscriptions
-  has_many :licenses
+  has_many :free_licenses
+  has_many :pro_licenses
 
   validates :uid, presence: true, uniqueness: true
   validates :email, presence: true
@@ -16,16 +17,32 @@ class User < ApplicationRecord
     subscriptions.not_canceled.charge_not_failed.any?
   end
 
-  def active_subscription
+  def current_subscription
     subscriptions.not_canceled.charge_not_failed.order(created_at: :desc).first
   end
 
-  def has_license?
-    licenses.not_revoked.any?
+  def has_free_license?
+    free_licenses.not_revoked.any?
   end
 
-  def active_license
-    licenses.not_revoked.order(created_at: :desc).first
+  def has_pro_license?
+    pro_licenses.not_revoked.any?
+  end
+
+  def current_free_license
+    free_licenses.not_revoked.order(created_at: :desc).first
+  end
+
+  def current_pro_license
+    pro_licenses.not_revoked.order(created_at: :desc).first
+  end
+
+  def current_license
+    if has_pro_license?
+      current_pro_license
+    elsif has_free_license?
+      current_free_license
+    end
   end
 
   class << self
@@ -37,7 +54,7 @@ class User < ApplicationRecord
         transaction do
           user.save!
           user.create_credential!(access_token: auth.credentials.token, refresh_token: auth.credentials.refresh_token)
-          user.licenses.create!(key_type: 'free')
+          user.free_licenses.create!
         end
       else
         user.save! if user.changed?

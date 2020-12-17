@@ -52,7 +52,7 @@ module Api
 
         ApplicationRecord.transaction do
           subscription = Subscription.create_by(checkout_session: checkout_session, raw_customer: raw_customer, raw_subscription: raw_subscription)
-          user.licenses.create!(key_type: 'pro', metadata: { subscription_id: subscription.id })
+          user.pro_licenses.create!(subscription_id: subscription.id)
         end
 
         Stripe::Subscription.update(subscription_id, { metadata: { user_id: user_id, sub_id: subscription.id } })

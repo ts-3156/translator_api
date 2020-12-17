@@ -7,7 +7,7 @@ module Api
       unless subscription.canceled?
         ApplicationRecord.transaction do
           subscription.cancel!
-          current_user.licenses.find_by_metadata(subscription_id: subscription.id)&.revoke!
+          current_user.pro_licenses.find_by(subscription_id: subscription.id)&.revoke!
         end
       end
       render json: { message: t('.destroy') }

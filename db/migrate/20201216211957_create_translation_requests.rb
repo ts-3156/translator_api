@@ -1,6 +1,7 @@
 class CreateTranslationRequests < ActiveRecord::Migration[6.1]
   def change
     create_table :translation_requests do |t|
+      t.string :license_type, null: false
       t.bigint :license_id, null: false
       t.string :source_lang
       t.string :target_lang

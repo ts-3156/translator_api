@@ -1,9 +1,8 @@
-class CreateLicenses < ActiveRecord::Migration[6.1]
+class CreateFreeLicenses < ActiveRecord::Migration[6.1]
   def change
-    create_table :licenses do |t|
+    create_table :free_licenses do |t|
       t.bigint :user_id, null: false
       t.string :key, null: false
-      t.json :metadata
       t.datetime :revoked_at
 
       t.timestamps null: false
