@@ -23,9 +23,9 @@ class License
         if key.match?(/\Alk_trial_/)
           [TrialLicense.first, 'trial']
         elsif key.match?(/\Alk_free_/)
-          [FreeLicense.find_by(key: key), 'free']
+          [FreeLicense.not_invoked.find_by(key: key), 'free']
         elsif key.match?(/\Alk_pro_/)
-          [ProLicense.find_by(key: key), 'pro']
+          [ProLicense.not_invoked.find_by(key: key), 'pro']
         else
           nil
         end
