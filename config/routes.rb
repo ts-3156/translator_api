@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api, { format: 'json' } do
     resources :translations, only: %i(create)
+    get 'licenses', to: 'licenses#show'
     resource :user, only: %i(show)
     resources :webhooks, only: %i(create)
     resources :checkout_sessions, only: %i(create)

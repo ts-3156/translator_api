@@ -20,7 +20,11 @@ class TranslationRequest < ApplicationRecord
 
   class << self
     def from_params(params)
-      license = License.find_by(key: params[:license_key])
+      if params[:license_key].match?(/\Alk_trial_/)
+        license = License.trial_license
+      else
+        license = License.find_by(key: params[:license_key])
+      end
       new(license_id: license&.id, text: params[:text], source_lang: params[:source_lang], target_lang: params[:target_lang])
     end
   end

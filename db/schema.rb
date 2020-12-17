@@ -24,12 +24,13 @@ ActiveRecord::Schema.define(version: 2020_12_16_212040) do
 
   create_table "licenses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.text "key", null: false
+    t.string "key", null: false
     t.json "metadata"
     t.datetime "revoked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_licenses_on_created_at"
+    t.index ["key"], name: "index_licenses_on_key", unique: true
     t.index ["user_id"], name: "index_licenses_on_user_id"
   end
 

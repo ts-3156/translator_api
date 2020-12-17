@@ -27,9 +27,11 @@ module Api
             detected_source_language: response.detected_source_language
           }
         else
+          logger.warn "Response validation error: #{response.errors.full_messages}"
           render json: { message: 'Invalid translation response' }, status: :bad_request
         end
       else
+        logger.warn "Request validation error: #{request.errors.full_messages}"
         render json: { message: 'Invalid translation request' }, status: :bad_request
       end
     end

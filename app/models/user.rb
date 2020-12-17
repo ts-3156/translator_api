@@ -37,7 +37,7 @@ class User < ApplicationRecord
         transaction do
           user.save!
           user.create_credential!(access_token: auth.credentials.token, refresh_token: auth.credentials.refresh_token)
-          user.licenses.create!
+          user.licenses.create!(key_type: 'free')
         end
       else
         user.save! if user.changed?
