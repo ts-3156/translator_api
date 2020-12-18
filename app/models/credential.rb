@@ -19,5 +19,5 @@ class Credential < ApplicationRecord
 
   validates :user_id, presence: true, uniqueness: true
   validates :access_token, presence: true
-  validates :refresh_token, presence: true
+  validates :refresh_token, presence: true, uniqueness: true
 end
