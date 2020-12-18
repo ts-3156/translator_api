@@ -8,7 +8,7 @@ module Api
     rescue_from StandardError do |e|
       logger.warn "Unhandled exception: #{e.inspect}"
       logger.info e.backtrace.join("\n")
-      render json: { message: 'Internal server error' }, status: :bad_request
+      render json: { message: 'Internal server error' }, status: :internal_server_error
     end
 
     def create

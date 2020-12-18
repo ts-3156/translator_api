@@ -21,8 +21,15 @@ class Deepl
   private
 
   def post(params)
-    # TODO Set timeout
     uri = URI.parse('https://api.deepl.com/v2/translate')
-    Net::HTTP.post_form(uri, params).body
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    https.open_timeout = 3
+    https.read_timeout = 3
+    https.write_timeout = 3
+    req = Net::HTTP::Post.new(uri)
+    req['Content-Type'] = 'application/x-www-form-urlencoded'
+    req.set_form_data(params)
+    https.start { https.request(req) }.body
   end
 end
