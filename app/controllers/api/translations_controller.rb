@@ -38,13 +38,5 @@ module Api
         render json: { message: 'Invalid translation request', keys: keys }, status: :bad_request
       end
     end
-
-    private
-
-    def register_trial_license
-      if params[:license_key].match?(/\Alk_trial_/) && !TrialLicense.exists?(key: params[:license_key])
-        TrialLicense.create!(key: params[:license_key])
-      end
-    end
   end
 end

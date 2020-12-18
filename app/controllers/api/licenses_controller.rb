@@ -8,9 +8,10 @@ module Api
     end
 
     def show
-      if params[:uid] && params[:key] &&
+      if params[:uid] && params[:license_key] &&
+        params[:license_key].match?(/\Alk_(free|pro)_\w{30,50}\z/) &&
         (user = User.find_by(uid: params[:uid])) &&
-        (license = License.find_by(key: params[:key])) &&
+        (license = License.find_by(key: params[:license_key])) &&
         (access_token = GoogleOauth.new(refresh_token: user.credential.refresh_token).access_token) &&
         (uid = GoogleOauth.new(access_token: access_token).uid) &&
         user.uid == uid

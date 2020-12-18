@@ -36,11 +36,11 @@ class License
   class << self
     def find_by(key:)
       record, type =
-        if key.match?(/\Alk_trial_/)
+        if key.match?(/\Alk_trial_\w{30,50}\z/)
           [TrialLicense.not_revoked.find_by(key: key), 'trial']
-        elsif key.match?(/\Alk_free_/)
+        elsif key.match?(/\Alk_free_\w{30,50}\z/)
           [FreeLicense.not_revoked.find_by(key: key), 'free']
-        elsif key.match?(/\Alk_pro_/)
+        elsif key.match?(/\Alk_pro_\w{30,50}\z/)
           [ProLicense.not_revoked.find_by(key: key), 'pro']
         else
           nil

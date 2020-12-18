@@ -1,8 +1,10 @@
 module Api
   class UsagesController < BaseController
 
+    before_action :register_trial_license
+
     def show
-      if params[:key] && (license = License.find_by(key: params[:key]))
+      if params[:license_key] && (license = License.find_by(key: params[:license_key]))
         limit30 = license.limited_chars(30)
         render json: {
           'day1' => license.translated_chars(1),
