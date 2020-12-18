@@ -17,6 +17,14 @@ class License
     @type
   end
 
+  def translated_chars(days)
+    @record.translated_chars(days)
+  end
+
+  def limited_chars(days)
+    @record.limited_chars(days)
+  end
+
   def chars_per_translation_exceeded?(text)
     @record.chars_per_translation_exceeded?(text)
   end
