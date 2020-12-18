@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: translation_responses
+#
+#  id                       :bigint           not null, primary key
+#  translation_request_id   :bigint           not null
+#  detected_source_language :string(255)
+#  text                     :text(65535)
+#  created_at               :datetime         not null
+#
+# Indexes
+#
+#  index_translation_responses_on_created_at  (created_at)
+#
 class TranslationResponse < ApplicationRecord
   belongs_to :translation_request
 

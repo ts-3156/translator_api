@@ -7,7 +7,7 @@ module LicenseLimitation
   end
 
   def translated_chars(days)
-    translation_requests(days).select('sum(char_length(text)) count').first.count
+    translation_requests(days).select('sum(char_length(text)) count').first.count || 0
   end
 
   def limited_chars(days)
@@ -23,7 +23,7 @@ module LicenseLimitation
   end
 
   def total_chars_will_exceed?(text)
-    chars_count = translation_requests(30).select('sum(char_length(text)) count').first.count
+    chars_count = translation_requests(30).select('sum(char_length(text)) count').first.count || 0
     Limitation::TOTAL_CHARS[license_type] < chars_count + text.length
   end
 

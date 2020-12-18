@@ -1,3 +1,30 @@
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id                         :bigint           not null, primary key
+#  user_id                    :bigint           not null
+#  email                      :string(255)
+#  name                       :string(255)
+#  price                      :integer
+#  tax_rate                   :decimal(4, 2)
+#  stripe_checkout_session_id :string(255)
+#  stripe_customer_id         :string(255)
+#  stripe_subscription_id     :string(255)
+#  trial_end_at               :datetime
+#  canceled_at                :datetime
+#  charge_failed_at           :datetime
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#
+# Indexes
+#
+#  index_subscriptions_on_created_at                  (created_at)
+#  index_subscriptions_on_stripe_checkout_session_id  (stripe_checkout_session_id) UNIQUE
+#  index_subscriptions_on_stripe_customer_id          (stripe_customer_id) UNIQUE
+#  index_subscriptions_on_stripe_subscription_id      (stripe_subscription_id) UNIQUE
+#  index_subscriptions_on_user_id                     (user_id)
+#
 class Subscription < ApplicationRecord
   belongs_to :user
 

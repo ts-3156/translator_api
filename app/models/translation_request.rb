@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: translation_requests
+#
+#  id           :bigint           not null, primary key
+#  license_type :string(255)      not null
+#  license_id   :bigint           not null
+#  source_lang  :string(255)
+#  target_lang  :string(255)
+#  text         :text(65535)
+#  created_at   :datetime         not null
+#
+# Indexes
+#
+#  index_translation_requests_on_created_at  (created_at)
+#
 class TranslationRequest < ApplicationRecord
 
   attr_accessor :license
