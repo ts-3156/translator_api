@@ -6,9 +6,9 @@ class Subscription < ApplicationRecord
   validates :name, presence: true
   validates :price, presence: true
   validates :tax_rate, presence: true
-  validates :checkout_session_id, presence: true
-  validates :customer_id, presence: true # TODO stripe_customer_id
-  validates :subscription_id, presence: true # TODO stripe_subscription_id
+  validates :stripe_checkout_session_id, presence: true, uniqueness: true
+  validates :stripe_customer_id, presence: true, uniqueness: true
+  validates :stripe_subscription_id, presence: true, uniqueness: true
 
   scope :not_canceled, -> { where(canceled_at: nil) }
   scope :charge_not_failed, -> { where(charge_failed_at: nil) }
@@ -40,9 +40,9 @@ class Subscription < ApplicationRecord
         name: PRODUCT_NAME,
         price: PRICE,
         tax_rate: TAX_RATE,
-        checkout_session_id: checkout_session.id,
-        customer_id: checkout_session.customer,
-        subscription_id: checkout_session.subscription,
+        stripe_checkout_session_id: checkout_session.id,
+        stripe_customer_id: checkout_session.customer,
+        stripe_subscription_id: checkout_session.subscription,
         trial_end_at: trial_end_at,
       )
     end

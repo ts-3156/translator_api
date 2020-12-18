@@ -52,15 +52,18 @@ ActiveRecord::Schema.define(version: 2020_12_17_054637) do
     t.string "name"
     t.integer "price"
     t.decimal "tax_rate", precision: 4, scale: 2
-    t.string "checkout_session_id"
-    t.string "customer_id"
-    t.string "subscription_id"
+    t.string "stripe_checkout_session_id"
+    t.string "stripe_customer_id"
+    t.string "stripe_subscription_id"
     t.datetime "trial_end_at"
     t.datetime "canceled_at"
     t.datetime "charge_failed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_subscriptions_on_created_at"
+    t.index ["stripe_checkout_session_id"], name: "index_subscriptions_on_stripe_checkout_session_id", unique: true
+    t.index ["stripe_customer_id"], name: "index_subscriptions_on_stripe_customer_id", unique: true
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
