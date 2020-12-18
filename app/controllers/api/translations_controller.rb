@@ -3,6 +3,8 @@ module Api
 
     skip_before_action :verify_authenticity_token
 
+    before_action :register_trial_license
+
     rescue_from StandardError do |e|
       logger.warn "Unhandled exception: #{e.inspect}"
       logger.info e.backtrace.join("\n")
@@ -32,7 +34,16 @@ module Api
         end
       else
         logger.warn "Request validation error: #{request.errors.full_messages}"
-        render json: { message: 'Invalid translation request' }, status: :bad_request
+        keys = request.errors.messages.values.flatten.select { |key| %w(limit_chars_per_translation limit_total_chars).include?(key) }
+        render json: { message: 'Invalid translation request', keys: keys }, status: :bad_request
+      end
+    end
+
+    private
+
+    def register_trial_license
+      if params[:license_key].match?(/\Alk_trial_/) && !TrialLicense.exists?(key: params[:license_key])
+        TrialLicense.create!(key: params[:license_key])
       end
     end
   end

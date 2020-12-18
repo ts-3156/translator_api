@@ -17,15 +17,23 @@ class License
     @type
   end
 
+  def chars_per_translation_exceeded?(text)
+    @record.chars_per_translation_exceeded?(text)
+  end
+
+  def total_chars_will_exceed?(text)
+    @record.total_chars_will_exceed?(text)
+  end
+
   class << self
     def find_by(key:)
       record, type =
         if key.match?(/\Alk_trial_/)
-          [TrialLicense.first, 'trial']
+          [TrialLicense.not_revoked.find_by(key: key), 'trial']
         elsif key.match?(/\Alk_free_/)
-          [FreeLicense.not_invoked.find_by(key: key), 'free']
+          [FreeLicense.not_revoked.find_by(key: key), 'free']
         elsif key.match?(/\Alk_pro_/)
-          [ProLicense.not_invoked.find_by(key: key), 'pro']
+          [ProLicense.not_revoked.find_by(key: key), 'pro']
         else
           nil
         end

@@ -1,5 +1,7 @@
 class TranslationRequest < ApplicationRecord
 
+  attr_accessor :license
+
   validates :license_type, presence: true
   validates :license_id, presence: true
   validates :text, presence: true
@@ -18,10 +20,25 @@ class TranslationRequest < ApplicationRecord
     end
   end
 
+  validate :limit_chars_per_translation
+  validate :limit_total_chars
+
+  def limit_chars_per_translation
+    if license && license.chars_per_translation_exceeded?(text)
+      errors.add(:base, 'limit_chars_per_translation')
+    end
+  end
+
+  def limit_total_chars
+    if license && license.total_chars_will_exceed?(text)
+      errors.add(:base, 'limit_total_chars')
+    end
+  end
+
   class << self
     def from_params(params)
       license = License.find_by(key: params[:license_key])
-      new(license_type: license.type, license_id: license.id, text: params[:text], source_lang: params[:source_lang], target_lang: params[:target_lang])
+      new(license: license, license_type: license&.type, license_id: license&.id, text: params[:text], source_lang: params[:source_lang], target_lang: params[:target_lang])
     end
   end
 

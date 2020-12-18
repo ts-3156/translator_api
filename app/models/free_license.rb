@@ -1,4 +1,8 @@
 class FreeLicense < ApplicationRecord
+  include LicenseToken
+  include LicenseRevocable
+  include LicenseLimitation
+
   belongs_to :user
 
   validates :user_id, presence: true
@@ -6,22 +10,11 @@ class FreeLicense < ApplicationRecord
 
   before_validation do
     if key.blank?
-      self.key = self.class.generate_key
+      self.key = self.class.generate_key(license_type)
     end
   end
 
-  scope :not_revoked, -> { where(revoked_at: nil) }
-
-  def revoke!
-    update!(revoked_at: Time.zone.now)
-  end
-
-  class << self
-    def generate_key
-      begin
-        key = "lk_free_#{SecureRandom.hex}"
-      end while exists?(key: key)
-      key
-    end
+  def license_type
+    :free
   end
 end

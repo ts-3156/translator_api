@@ -7,8 +7,8 @@ class Subscription < ApplicationRecord
   validates :price, presence: true
   validates :tax_rate, presence: true
   validates :checkout_session_id, presence: true
-  validates :customer_id, presence: true
-  validates :subscription_id, presence: true
+  validates :customer_id, presence: true # TODO stripe_customer_id
+  validates :subscription_id, presence: true # TODO stripe_subscription_id
 
   scope :not_canceled, -> { where(canceled_at: nil) }
   scope :charge_not_failed, -> { where(charge_failed_at: nil) }
