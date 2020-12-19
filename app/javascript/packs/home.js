@@ -18,6 +18,7 @@ function updateUILabels() {
   $('#support-account-title').text(i18n.t('support_account'))
   $('#privacy-policy-title').text(i18n.t('privacy_policy'))
   $('#terms-of-service-title').text(i18n.t('terms_of_service'))
+  $('#revoke-permissions-title').text(i18n.t('revoke_permissions'))
   $('#plan-title').text(i18n.t('plan'))
   $('#free-plan-description').html(i18n.t('free_plan_description', {url: process.env.EXTENSION_OPTIONS_URL}))
   $('#pro-plan-description').text(i18n.t('pro_plan_description'))
