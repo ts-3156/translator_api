@@ -74,8 +74,8 @@ class User < ApplicationRecord
       else
         user.save! if user.changed?
 
-        user.credential.assign_attributes(access_token: auth.credentials.token) if auth.credentials.token.any?
-        user.credential.assign_attributes(refresh_token: auth.credentials.refresh_token) if auth.credentials.refresh_token.any?
+        user.credential.assign_attributes(access_token: auth.credentials.token) if auth.credentials.token.present?
+        user.credential.assign_attributes(refresh_token: auth.credentials.refresh_token) if auth.credentials.refresh_token.present?
         user.credential.save! if user.credential.changed?
       end
 

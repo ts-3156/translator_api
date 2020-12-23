@@ -3,7 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   rescue_from StandardError do |e|
     logger.warn "Unhandled exception: #{e.inspect}"
     logger.info e.backtrace.join("\n")
-    flash[:alert] = t('.failure', reason: request.env['omniauth.error.type'])
+    flash[:alert] = t('.failure', reason: 'Error')
     redirect_to root_path(via: 'auth_exception')
   end
 
