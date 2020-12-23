@@ -79,6 +79,10 @@ class User < ApplicationRecord
       end
 
       user
+    rescue => e
+      logger.warn "from_omniauth: cannot save user and credential exception=#{e.inspect} auth=#{auth.inspect}"
+      logger.info e.backtrace.join("\n")
+      raise
     end
   end
 end
