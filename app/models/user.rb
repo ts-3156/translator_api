@@ -74,14 +74,14 @@ class User < ApplicationRecord
       else
         user.save! if user.changed?
 
-        user.credential.assign_attributes(access_token: auth.credentials.token, refresh_token: auth.credentials.refresh_token)
+        user.credential.assign_attributes(access_token: auth.credentials.token) if auth.credentials.token.any?
+        user.credential.assign_attributes(refresh_token: auth.credentials.refresh_token) if auth.credentials.refresh_token.any?
         user.credential.save! if user.credential.changed?
       end
 
       user
     rescue => e
       logger.warn "from_omniauth: cannot save user and credential exception=#{e.inspect} auth=#{auth.inspect}"
-      logger.info e.backtrace.join("\n")
       raise
     end
   end
